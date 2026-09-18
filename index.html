@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>拾光工具箱</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="orb orb-one"></div><div class="orb orb-two"></div>
+    <main class="shell">
+      <nav>
+        <a class="brand" href="#"><span class="brand-mark">↗</span><span>拾光 <i>tools</i></span></a>
+        <div class="nav-actions"><button class="icon-button" id="themeToggle" aria-label="切换主题">☾</button><button class="account">登录 <span>→</span></button></div>
+      </nav>
+
+      <section class="hero">
+        <p class="eyebrow">DESIGNED FOR SMALL WINS</p>
+        <h1>把琐事交给工具，<br /><em>把时间留给生活。</em></h1>
+        <p class="hero-copy">一组轻巧、干净、即开即用的小工具。没有学习成本，专注完成眼前这一件事。</p>
+        <div class="finder"><span>⌕</span><input id="search" placeholder="搜索一个工具，例如：番茄钟、二维码…" /><kbd>⌘ K</kbd></div>
+        <div class="quick-tags"><span>热门：</span><button data-query="番茄">番茄钟</button><button data-query="二维码">二维码</button><button data-query="文本">文本处理</button></div>
+      </section>
+
+      <section class="tools-section">
+        <div class="section-head"><div><p class="eyebrow">TODAY'S TOOLKIT</p><h2>常用工具</h2></div><button class="all-tools">查看全部 <span>→</span></button></div>
+        <div class="tool-grid" id="toolGrid">
+          <article class="tool-card featured" data-name="番茄钟 专注 计时器">
+            <div class="card-top"><span class="tool-icon coral">◒</span><span class="badge">最受欢迎</span></div>
+            <h3>沉浸番茄钟</h3><p>在恰好的节奏里，完成真正重要的事。</p>
+            <button class="launch" data-tool="pomodoro">开始专注 <span>→</span></button>
+            <div class="tomato-decoration"><b></b><b></b><b></b></div>
+          </article>
+          <article class="tool-card" data-name="二维码 生成器">
+            <div class="card-top"><span class="tool-icon yellow">▦</span><span class="arrow">↗</span></div>
+            <h3>二维码生成器</h3><p>把链接、文字或 Wi-Fi 轻松分享出去。</p><button class="launch" data-tool="qr">生成二维码 <span>→</span></button>
+          </article>
+          <article class="tool-card" data-name="文本 清理 格式">
+            <div class="card-top"><span class="tool-icon blue">≋</span><span class="arrow">↗</span></div>
+            <h3>文本整理</h3><p>清除空行、转换格式，让文字清爽有序。</p><button class="launch" data-tool="text">整理文本 <span>→</span></button>
+          </article>
+          <article class="tool-card wide" data-name="单位 换算 转换器">
+            <div class="wide-content"><span class="tool-icon mint">⌁</span><div><h3>单位换算</h3><p>长度、重量、温度，一秒得到准确答案。</p></div></div><button class="launch" data-tool="convert">开始换算 <span>→</span></button>
+          </article>
+          <article class="tool-card wide" data-name="随机 决策 转盘">
+            <div class="wide-content"><span class="tool-icon lavender">✦</span><div><h3>随机决定</h3><p>选择困难时，让一点随机替你翻开答案。</p></div></div><button class="launch" data-tool="random">帮我决定 <span>→</span></button>
+          </article>
+        </div>
+        <p class="no-result" id="noResult">没有找到匹配的工具，换个关键词试试。</p>
+      </section>
+      <footer><span>© 2026 拾光工具箱</span><span>简单，是一种力量。</span></footer>
+    </main>
+
+    <div class="modal-backdrop" id="modal"><section class="modal" role="dialog" aria-modal="true"><button class="close" id="closeModal">×</button><div id="modalContent"></div></section></div>
+    <script src="script.js"></script>
+  </body>
+</html>
+
