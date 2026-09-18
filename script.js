@@ -1,5 +1,6 @@
 const modal = document.querySelector('#modal');
 const content = document.querySelector('#modalContent');
+const accountButton = document.querySelector('#accountButton');
 let timerId, seconds = 25 * 60;
 
 const templates = {
@@ -9,6 +10,9 @@ const templates = {
   convert: () => `<h2>单位换算</h2><p>选一个单位，输入数字，即刻转换。</p><select id="unit"><option value="km">公里 → 英里</option><option value="kg">千克 → 磅</option><option value="c">摄氏度 → 华氏度</option></select><input id="convertInput" type="number" placeholder="输入数值" /><button class="primary" id="convertButton">开始换算</button><div class="result" id="convertResult" style="display:none"></div>`,
   random: () => `<h2>随机决定</h2><p>每行写一个选项，让一点随机带你跳出犹豫。</p><textarea id="randomInput" placeholder="看电影\n去散步\n读一本书"></textarea><button class="primary" id="randomButton">替我选择</button><div class="result" id="randomResult" style="display:none"></div>`
 };
+
+function updateAccount() { const name = localStorage.getItem('shiguang-user'); accountButton.innerHTML = name ? `${name} <span>⌄</span>` : `登录 <span>→</span>`; }
+function openAccount() { const name = localStorage.getItem('shiguang-user'); content.innerHTML = name ? `<h2>你好，${name}</h2><p>你已登录拾光工具箱。常用设置会保存在这台设备上。</p><button class="secondary" id="logoutButton">退出登录</button>` : `<h2>欢迎回来</h2><p>输入一个昵称，马上开始使用你的工具箱。</p><input id="nameInput" maxlength="16" placeholder="你的昵称" /><button class="primary" id="loginButton">登录并继续</button>`; modal.classList.add('open'); if (name) document.querySelector('#logoutButton').onclick = () => { localStorage.removeItem('shiguang-user'); updateAccount(); document.querySelector('#closeModal').click(); }; else document.querySelector('#loginButton').onclick = () => { const value = document.querySelector('#nameInput').value.trim(); if (!value) return document.querySelector('#nameInput').focus(); localStorage.setItem('shiguang-user', value); updateAccount(); document.querySelector('#closeModal').click(); }; }
 
 function openTool(name) { content.innerHTML = templates[name](); modal.classList.add('open'); if (name === 'pomodoro') bindTimer(); if (name === 'qr') bindQr(); if (name === 'text') bindText(); if (name === 'convert') bindConvert(); if (name === 'random') bindRandom(); }
 function bindTimer() { const display = document.querySelector('#timer'); const draw = () => display.textContent = `${String(Math.floor(seconds / 60)).padStart(2,'0')}:${String(seconds % 60).padStart(2,'0')}`; draw(); document.querySelector('#timerStart').onclick = e => { if (timerId) { clearInterval(timerId); timerId = null; e.target.textContent = '继续专注'; return; } e.target.textContent = '暂停'; timerId = setInterval(() => { seconds--; draw(); if (!seconds) { clearInterval(timerId); timerId = null; e.target.textContent = '完成啦！'; } }, 1000); }; document.querySelector('#timerReset').onclick = () => { clearInterval(timerId); timerId = null; seconds = 25 * 60; draw(); document.querySelector('#timerStart').textContent = '开始专注'; }; }
@@ -22,5 +26,7 @@ modal.onclick = e => { if (e.target === modal) document.querySelector('#closeMod
 document.querySelector('#search').oninput = e => { const query=e.target.value.toLowerCase(); let count=0; document.querySelectorAll('.tool-card').forEach(card=>{const match=card.dataset.name.includes(query);card.style.display=match?'flex':'none'; if(match) count++;}); document.querySelector('#noResult').style.display=count?'none':'block'; };
 document.querySelectorAll('[data-query]').forEach(button => button.onclick = () => { const input=document.querySelector('#search'); input.value=button.dataset.query; input.dispatchEvent(new Event('input')); });
 document.querySelector('#themeToggle').onclick = () => { document.body.classList.toggle('dark'); document.querySelector('#themeToggle').textContent=document.body.classList.contains('dark')?'☀':'☾'; };
+accountButton.onclick = openAccount;
+updateAccount();
 document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase()==='k') { e.preventDefault(); document.querySelector('#search').focus(); } if (e.key==='Escape') document.querySelector('#closeModal').click(); });
 
