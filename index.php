@@ -39,8 +39,7 @@ function page_url(int $p, string $q): string {
 <title><?= e($config['app']['name'] ?? 'SOCKS5 代理列表') ?></title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="assets/style.css">
-<script defer src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
-<script defer src="assets/app.js"></script>
+<script defer src="assets/app.js?v=qr-local-1"></script>
 </head>
 <body>
 <header class="topbar">
